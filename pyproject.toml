@@ -12,5 +12,8 @@ dependencies = [
     "typer",
 ]
 
+[project.scripts]
+greek-parcel = "src.cli.commands:app"
+
 [tool.uv]
 dev-dependencies = []
