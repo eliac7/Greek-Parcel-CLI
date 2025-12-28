@@ -1,4 +1,4 @@
-# Greek Parcel CLI 📦🇬🇷
+# Greek Parcel CLI
 
 A command-line interface (CLI) tool for tracking parcels from various Greek courier services. Built with Python, Typer, and Rich.
 
@@ -24,12 +24,13 @@ The following courier services are currently supported:
 
 ### Prerequisites
 
-*   Python 3.9 or higher
-*   [uv](https://github.com/astral-sh/uv) (recommended)
+- Python 3.9 or higher
+- [uv](https://github.com/astral-sh/uv) (recommended)
 
 ### Using uv (Recommended)
 
 1.  Clone the repository:
+
     ```bash
     git clone https://github.com/yourusername/Greek-Parcel-CLI.git
     cd Greek-Parcel-CLI

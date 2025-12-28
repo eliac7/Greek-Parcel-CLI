@@ -29,7 +29,7 @@ def track(
         ...,
         "--courier",
         "-c",
-        help="Courier name (acs, elta, geniki, skroutz, speedex, easymail, couriercenter)",
+        help="Courier name (acs, boxnow, elta, geniki, skroutz, speedex, easymail, couriercenter)",
     ),
 ):
     """

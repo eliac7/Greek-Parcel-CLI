@@ -8,6 +8,7 @@ DEFAULT_USER_AGENT = (
 # Courier Names
 COURIER_NAMES = [
     "acs",
+    "boxnow",
     "couriercenter",
     "easymail",
     "elta",

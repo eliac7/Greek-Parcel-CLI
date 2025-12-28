@@ -2,6 +2,7 @@ from typing import Optional
 
 from src.trackers.base import CourierTracker
 from src.trackers.acs import ACSTracker
+from src.trackers.boxnow import BoxNowTracker
 from src.trackers.courier_center import CourierCenterTracker
 from src.trackers.easymail import EasyMailTracker
 from src.trackers.elta import EltaTracker
@@ -11,6 +12,7 @@ from src.trackers.speedex import SpeedexTracker
 
 _TRACKER_REGISTRY: dict[str, type[CourierTracker]] = {
     "acs": ACSTracker,
+    "boxnow": BoxNowTracker,
     "couriercenter": CourierCenterTracker,
     "easymail": EasyMailTracker,
     "elta": EltaTracker,
@@ -50,6 +52,7 @@ def list_couriers() -> list[str]:
 __all__ = [
     "CourierTracker",
     "ACSTracker",
+    "BoxNowTracker",
     "CourierCenterTracker",
     "EasyMailTracker",
     "EltaTracker",
