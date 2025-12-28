@@ -5,17 +5,6 @@ DEFAULT_USER_AGENT = (
     "(KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
 )
 
-# Courier Names
-COURIER_NAMES = [
-    "acs",
-    "boxnow",
-    "couriercenter",
-    "easymail",
-    "elta",
-    "geniki",
-    "skroutz",
-    "speedex",
-]
 
 # Status Messages
 STATUS_TRACKING = "Tracking {tracking_number} with {courier}..."
