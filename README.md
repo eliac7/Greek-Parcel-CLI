@@ -92,6 +92,10 @@ This project uses modern Python tooling.
     python -m src track <number> -c <courier>
     ```
 
+## Acknowledgements
+
+Special thanks to [Daniel Pikilidis](https://github.com/DanielPikilidis) and his project [Greek-Courier-API](https://github.com/DanielPikilidis/Greek-Courier-API) for providing the endpoints and selectors used in this project.
+
 ## License
 
 [MIT License](LICENSE)
