@@ -19,6 +19,7 @@ The following courier services are currently supported:
 - Geniki Taxydromiki (`geniki`)
 - Skroutz Last Mile (`skroutz`)
 - Speedex (`speedex`)
+- BoxNow (`boxnow`)
 
 ## Installation
 
