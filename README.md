@@ -26,9 +26,25 @@ The following courier services are currently supported:
 ### Prerequisites
 
 - Python 3.9 or higher
-- [uv](https://github.com/astral-sh/uv) (recommended)
 
-### Using uv (Recommended)
+### Install from PyPI (Recommended)
+
+The easiest way to install Greek Parcel CLI is using pip:
+
+```bash
+pip install greek-parcel-cli
+```
+
+After installation, the `greek-parcel` command will be available globally:
+
+```bash
+greek-parcel list
+greek-parcel track <number> -c <courier>
+```
+
+### Install from Source
+
+#### Using uv (Recommended)
 
 1.  Clone the repository:
 
@@ -42,7 +58,7 @@ The following courier services are currently supported:
     uv sync
     ```
 
-### Using pip
+#### Using pip
 
 1.  Clone the repository and enter the directory.
 2.  Create and activate a virtual environment:

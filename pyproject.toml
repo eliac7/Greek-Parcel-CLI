@@ -1,9 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "greek-parcel-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "A CLI tool for tracking parcels from Greek courier services."
 readme = "README.md"
 requires-python = ">=3.9"
+license = "MIT"
+authors = [
+    {name = "Ilias Nikolaos Thalassochoritis", email = "iliascodes@gmail.com"}
+]
+keywords = [
+    "parcel",
+    "tracking",
+    "courier",
+    "greek",
+    "cli",
+    "package-tracking",
+    "shipping",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+]
 dependencies = [
     "beautifulsoup4",
     "lxml",
@@ -14,6 +42,12 @@ dependencies = [
 
 [project.scripts]
 greek-parcel = "src.cli.commands:app"
+
+[project.urls]
+Homepage = "https://github.com/eliac7/Greek-Parcel-CLI"
+Documentation = "https://github.com/eliac7/Greek-Parcel-CLI#readme"
+Repository = "https://github.com/eliac7/Greek-Parcel-CLI"
+Issues = "https://github.com/eliac7/Greek-Parcel-CLI/issues"
 
 [tool.uv]
 dev-dependencies = []
