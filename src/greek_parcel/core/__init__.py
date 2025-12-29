@@ -1,5 +1,5 @@
-from src.core.models import Location, Package
-from src.core.exceptions import (
+from greek_parcel.core.models import Location, Package
+from greek_parcel.core.exceptions import (
     TrackingError,
     CourierNotFoundError,
     PackageNotFoundError,

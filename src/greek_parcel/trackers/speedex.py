@@ -4,9 +4,9 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
-from src.core.constants import DEFAULT_TIMEOUT, DELIVERY_INDICATORS
-from src.core.models import Location, Package
-from src.trackers.base import CourierTracker
+from greek_parcel.core.constants import DEFAULT_TIMEOUT, DELIVERY_INDICATORS
+from greek_parcel.core.models import Location, Package
+from greek_parcel.trackers.base import CourierTracker
 
 logger = logging.getLogger(__name__)
 

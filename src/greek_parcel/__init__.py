@@ -1,6 +1,6 @@
 from importlib.metadata import version, PackageNotFoundError
 
-from src.core.logging_config import setup_logging
+from greek_parcel.core.logging_config import setup_logging
 
 try:
     __version__ = version("greek-parcel-cli")

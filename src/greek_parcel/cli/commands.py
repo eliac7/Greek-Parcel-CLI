@@ -2,10 +2,10 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from src.core.constants import ERROR_TRACKING_PACKAGE, STATUS_TRACKING
-from src.core.exceptions import CourierNotFoundError
-from src.trackers import get_tracker, list_couriers
-from src.utils.display import display_package
+from greek_parcel.core.constants import ERROR_TRACKING_PACKAGE, STATUS_TRACKING
+from greek_parcel.core.exceptions import CourierNotFoundError
+from greek_parcel.trackers import get_tracker, list_couriers
+from greek_parcel.utils.display import display_package
 
 app = typer.Typer(help="Greek Parcel Tracking CLI")
 console = Console()

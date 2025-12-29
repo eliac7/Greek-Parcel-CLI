@@ -1,12 +1,12 @@
 from rich.console import Console
 from rich.table import Table
 
-from src.core.constants import (
+from greek_parcel.core.constants import (
     STATUS_DELIVERED,
     STATUS_IN_TRANSIT,
     STATUS_PACKAGE_NOT_FOUND,
 )
-from src.core.models import Package
+from greek_parcel.core.models import Package
 
 console = Console()
 

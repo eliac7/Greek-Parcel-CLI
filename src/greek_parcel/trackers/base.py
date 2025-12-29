@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.core.models import Package
+from greek_parcel.core.models import Package
 
 
 class CourierTracker(ABC):

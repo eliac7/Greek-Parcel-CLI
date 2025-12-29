@@ -1,14 +1,14 @@
 from typing import Optional
 
-from src.trackers.base import CourierTracker
-from src.trackers.acs import ACSTracker
-from src.trackers.boxnow import BoxNowTracker
-from src.trackers.courier_center import CourierCenterTracker
-from src.trackers.easymail import EasyMailTracker
-from src.trackers.elta import EltaTracker
-from src.trackers.geniki import GenikiTracker
-from src.trackers.skroutz import SkroutzTracker
-from src.trackers.speedex import SpeedexTracker
+from greek_parcel.trackers.base import CourierTracker
+from greek_parcel.trackers.acs import ACSTracker
+from greek_parcel.trackers.boxnow import BoxNowTracker
+from greek_parcel.trackers.courier_center import CourierCenterTracker
+from greek_parcel.trackers.easymail import EasyMailTracker
+from greek_parcel.trackers.elta import EltaTracker
+from greek_parcel.trackers.geniki import GenikiTracker
+from greek_parcel.trackers.skroutz import SkroutzTracker
+from greek_parcel.trackers.speedex import SpeedexTracker
 
 _TRACKER_REGISTRY: dict[str, type[CourierTracker]] = {
     "acs": ACSTracker,

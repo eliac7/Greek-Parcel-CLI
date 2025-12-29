@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "greek-parcel-cli"
-version = "0.1.2"
+version = "0.1.3"
 description = "A CLI tool for tracking parcels from Greek courier services."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -41,7 +41,7 @@ dependencies = [
 ]
 
 [project.scripts]
-greek-parcel = "src.cli.commands:app"
+greek-parcel = "greek_parcel.cli.commands:app"
 
 [project.urls]
 Homepage = "https://github.com/eliac7/Greek-Parcel-CLI"
