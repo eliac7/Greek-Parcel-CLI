@@ -8,6 +8,7 @@ A command-line interface (CLI) tool for tracking parcels from various Greek cour
 - **Rich Output**: Beautiful terminal output with tables and status indicators.
 - **JSON Output**: Optional JSON output for programmatic integration (e.g., widgets, scripts).
 - **Easy to Use**: Simple CLI commands for quick tracking.
+- **Improved Reliability**: Uses random User-Agents to mimic real browser traffic and avoid blocking.
 
 ## Supported Couriers
 
