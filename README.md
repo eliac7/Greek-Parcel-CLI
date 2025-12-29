@@ -110,6 +110,27 @@ This project uses modern Python tooling.
     python -m src track <number> -c <courier>
     ```
 
+## Contributing
+
+Contributions are welcome! This project supports multiple courier services, but I cannot verify that all of them work correctly without real tracking numbers.
+
+### How You Can Help
+
+- **Share Tracking Numbers**: If you have a tracking number from any supported courier that you can share (anonymized if needed), please open an issue. This helps verify that the tracking functionality works correctly.
+
+- **Report Issues**: Found a bug or a courier that's not working? Please open an issue with details about the problem.
+
+- **Fork and Contribute**: Feel free to fork the repository, make improvements, and submit a pull request. Whether it's fixing bugs, adding new features, or improving documentation, all contributions are appreciated!
+
+### Getting Started
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
 ## Acknowledgements
 
 Special thanks to [Daniel Pikilidis](https://github.com/DanielPikilidis) and his project [Greek-Courier-API](https://github.com/DanielPikilidis/Greek-Courier-API) for providing the endpoints and selectors used in this project.
