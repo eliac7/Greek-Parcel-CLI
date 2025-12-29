@@ -38,7 +38,13 @@ pip install greek-parcel-cli
 After installation, the `greek-parcel` command will be available globally:
 
 ```bash
+# List all supported couriers
 greek-parcel list
+
+# Track a parcel (auto-detects courier)
+greek-parcel track <number>
+
+# Track with a specific courier
 greek-parcel track <number> -c <courier>
 ```
 
@@ -82,7 +88,7 @@ You can run the tool directly without manual installation:
 
 ```bash
 uv run greek-parcel list
-uv run greek-parcel track <number> -c <courier>
+uv run greek-parcel track <number>
 ```
 
 ### After Installation
@@ -91,7 +97,7 @@ If you installed via `pip` or `uv sync`, the `greek-parcel` command will be avai
 
 ```bash
 greek-parcel list
-greek-parcel track <number> -c <courier>
+greek-parcel track <number>
 ```
 
 ## Development
@@ -106,8 +112,8 @@ This project uses modern Python tooling.
 
 2.  Run the CLI directly during development:
     ```bash
-    python -m src list
-    python -m src track <number> -c <courier>
+    python -m greek_parcel list
+    python -m greek_parcel track <number>
     ```
 
 ## Contributing
