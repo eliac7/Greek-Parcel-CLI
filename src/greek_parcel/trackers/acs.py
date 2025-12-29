@@ -106,7 +106,11 @@ class ACSTracker(CourierTracker):
             response = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT)
 
             if response.status_code != 200:
-                logger.warning(f"ACS returned status code {response.status_code}")
+                # 400/404 is expected if the tracking number is invalid for ACS
+                if response.status_code in [400, 404]:
+                     logger.debug(f"ACS returned status code {response.status_code} (likely invalid number for ACS)")
+                else:
+                     logger.warning(f"ACS returned status code {response.status_code}")
                 return package
 
             data = response.json()

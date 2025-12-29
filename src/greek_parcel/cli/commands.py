@@ -26,35 +26,62 @@ def list():
 def track(
     tracking_number: str,
     courier: str = typer.Option(
-        ...,
+        None,
         "--courier",
         "-c",
-        help="Courier name (acs, boxnow, elta, geniki, skroutz, speedex, easymail, couriercenter)",
+        help="Courier name (acs, boxnow, elta, geniki, skroutz, speedex, easymail, couriercenter). If omitted, searches all.",
     ),
 ):
     """
-    Track a parcel with a specific courier.
+    Track a parcel. If courier is not specified, attempts to find it in all supported couriers.
 
     Args:
         tracking_number: The tracking number to look up
-        courier: The courier name
+        courier: The courier name (optional)
     """
-    tracker = get_tracker(courier)
-    if not tracker:
-        console.print(f"[bold red]Unknown courier: {courier}[/bold red]")
-        raise typer.Exit(code=1)
+    if courier:
+        trackers_to_try = [courier]
+    else:
+        trackers_to_try = list_couriers()
 
+    found = False
+    
     with console.status(
-        STATUS_TRACKING.format(tracking_number=tracking_number, courier=courier),
+        "Searching for package..." if not courier else f"Tracking with {courier}...",
         spinner="dots",
-    ):
-        try:
-            package = tracker.track(tracking_number)
-            display_package(package)
-        except Exception as e:
-            error_msg = ERROR_TRACKING_PACKAGE.format(error=str(e))
-            console.print(error_msg, style="bold red")
-            raise typer.Exit(code=1) from e
+    ) as status:
+        for courier_name in trackers_to_try:
+            tracker = get_tracker(courier_name)
+            if not tracker:
+                if courier:
+                    console.print(f"[bold red]Unknown courier: {courier_name}[/bold red]")
+                    raise typer.Exit(code=1)
+                continue
+
+            if not courier:
+                status.update(f"Checking {courier_name}...")
+
+            try:
+                package = tracker.track(tracking_number)
+                if package.found:
+                    display_package(package)
+                    found = True
+                    break
+                elif courier:
+                     display_package(package)
+            except Exception as e:
+                if courier:
+                    error_msg = ERROR_TRACKING_PACKAGE.format(error=str(e))
+                    console.print(error_msg, style="bold red")
+                    raise typer.Exit(code=1) from e
+                continue
+    
+    if not found:
+        if courier:
+            pass
+        else:
+            console.print(f"[bold red]Could not find tracking number {tracking_number} in any supported courier.[/bold red]")
+            raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":
