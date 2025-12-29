@@ -3,9 +3,10 @@ from datetime import datetime
 
 import requests
 
-from greek_parcel.core.constants import DEFAULT_TIMEOUT, DEFAULT_USER_AGENT
+from greek_parcel.core.constants import DEFAULT_TIMEOUT
 from greek_parcel.core.models import Location, Package
 from greek_parcel.trackers.base import CourierTracker
+from greek_parcel.utils.user_agents import get_random_user_agent
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ class BoxNowTracker(CourierTracker):
                 "sec-fetch-dest": "empty",
                 "sec-fetch-mode": "cors",
                 "sec-fetch-site": "same-site",
-                "user-agent": DEFAULT_USER_AGENT,
+                "user-agent": get_random_user_agent(),
             }
 
             response = requests.post(

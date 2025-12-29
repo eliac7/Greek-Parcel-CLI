@@ -5,9 +5,10 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
-from greek_parcel.core.constants import DEFAULT_TIMEOUT, DEFAULT_USER_AGENT
+from greek_parcel.core.constants import DEFAULT_TIMEOUT
 from greek_parcel.core.models import Location, Package
 from greek_parcel.trackers.base import CourierTracker
+from greek_parcel.utils.user_agents import get_random_user_agent
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ class ACSTracker(CourierTracker):
             ]
 
             headers = {
-                "user-agent": DEFAULT_USER_AGENT,
+                "user-agent": get_random_user_agent(),
                 "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                 "accept-language": "el",
                 "referer": "https://www.acscourier.net/",
@@ -98,7 +99,7 @@ class ACSTracker(CourierTracker):
                 "sec-fetch-dest": "empty",
                 "sec-fetch-mode": "cors",
                 "sec-fetch-site": "same-site",
-                "user-agent": DEFAULT_USER_AGENT,
+                "user-agent": get_random_user_agent(),
                 "x-country": "GR",
                 "x-encrypted-key": encrypted_key,
                 "x-subscription-id": "",
