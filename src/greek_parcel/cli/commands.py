@@ -5,7 +5,7 @@ from rich.table import Table
 from greek_parcel.core.constants import ERROR_TRACKING_PACKAGE, STATUS_TRACKING
 from greek_parcel.core.exceptions import CourierNotFoundError
 from greek_parcel.trackers import get_tracker, list_couriers
-from greek_parcel.utils.display import display_package
+from greek_parcel.utils.display import display_package, display_package_json
 
 app = typer.Typer(help="Greek Parcel Tracking CLI")
 console = Console()
@@ -30,6 +30,12 @@ def track(
         "--courier",
         "-c",
         help="Courier name (acs, boxnow, elta, geniki, skroutz, speedex, easymail, couriercenter). If omitted, searches all.",
+    ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        "-j",
+        help="Output results as JSON instead of a formatted table.",
     ),
 ):
     """
@@ -64,11 +70,17 @@ def track(
             try:
                 package = tracker.track(tracking_number)
                 if package.found:
-                    display_package(package)
+                    if json_output:
+                        display_package_json(package)
+                    else:
+                        display_package(package)
                     found = True
                     break
                 elif courier:
-                     display_package(package)
+                    if json_output:
+                        display_package_json(package)
+                    else:
+                        display_package(package)
             except Exception as e:
                 if courier:
                     error_msg = ERROR_TRACKING_PACKAGE.format(error=str(e))
@@ -86,3 +98,4 @@ def track(
 
 if __name__ == "__main__":
     app()
+

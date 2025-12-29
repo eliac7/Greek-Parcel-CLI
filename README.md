@@ -6,6 +6,7 @@ A command-line interface (CLI) tool for tracking parcels from various Greek cour
 
 - **Multi-Courier Support**: Track packages from major Greek courier companies.
 - **Rich Output**: Beautiful terminal output with tables and status indicators.
+- **JSON Output**: Optional JSON output for programmatic integration (e.g., widgets, scripts).
 - **Easy to Use**: Simple CLI commands for quick tracking.
 
 ## Supported Couriers
@@ -46,6 +47,9 @@ greek-parcel track <number>
 
 # Track with a specific courier
 greek-parcel track <number> -c <courier>
+
+# Output as JSON (for integration with scripts/widgets)
+greek-parcel track <number> --json
 ```
 
 ### Install from Source

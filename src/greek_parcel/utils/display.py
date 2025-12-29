@@ -1,3 +1,5 @@
+import json
+
 from rich.console import Console
 from rich.table import Table
 
@@ -42,3 +44,13 @@ def display_package(package: Package) -> None:
         console.print(STATUS_DELIVERED, style="bold green")
     else:
         console.print(STATUS_IN_TRANSIT, style="bold yellow")
+
+
+def display_package_json(package: Package) -> None:
+    """
+    Display package tracking information as JSON.
+
+    Args:
+        package: The Package object to display
+    """
+    print(json.dumps(package.to_dict(), indent=2, ensure_ascii=False))
