@@ -6,6 +6,7 @@ A command-line interface (CLI) tool for tracking parcels from various Greek cour
 
 - **Multi-Courier Support**: Track packages from major Greek courier companies.
 - **Smart Detection**: Automatically identifies the courier based on the tracking number format.
+- **Tracking History**: Save and manage your parcels for easy status updates.
 - **Rich Output**: Beautiful terminal output with tables and status indicators.
 - **JSON Output**: Optional JSON output for programmatic integration (e.g., widgets, scripts).
 - **Easy to Use**: Simple CLI commands for quick tracking.
@@ -52,6 +53,24 @@ greek-parcel track <number> -c <courier>
 
 # Output as JSON (for integration with scripts/widgets)
 greek-parcel track <number> --json
+
+# Track and auto-save (skip prompt)
+greek-parcel track <number> --save
+
+# Track and do NOT save (skip prompt)
+greek-parcel track <number> --no-save
+
+# List tracking history
+greek-parcel history
+
+# Assign an alias to a saved parcel
+greek-parcel rename <number> "New Laptop"
+
+# Refresh all saved parcels
+greek-parcel refresh
+
+# Remove a parcel from history
+greek-parcel forget <number>
 ```
 
 ### Install from Source
