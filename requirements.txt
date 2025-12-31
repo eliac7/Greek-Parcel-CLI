@@ -4,3 +4,4 @@ typer
 rich
 lxml
 ua-generator
+plyer

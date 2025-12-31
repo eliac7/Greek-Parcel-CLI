@@ -1,3 +1,4 @@
+import time
 import typer
 from rich.console import Console
 from rich.table import Table
@@ -8,6 +9,7 @@ from greek_parcel.core.storage import load_history, remove_from_history, update_
 from greek_parcel.cli.interactions import handle_history_save
 from greek_parcel.trackers import get_tracker, list_couriers
 from greek_parcel.utils.display import display_package, display_package_json
+from greek_parcel.utils.notify import send_notification
 
 app = typer.Typer(help="Greek Parcel Tracking CLI")
 console = Console()
@@ -143,7 +145,9 @@ def track(
                         continue
 
     if found:
-        handle_history_save(tracking_number, found_courier_name, save, no_save, json_output)
+        handle_history_save(
+            tracking_number, found_courier_name, save, no_save, json_output
+        )
 
     if not found and not courier:
         console.print(
@@ -218,6 +222,109 @@ def refresh():
                 console.print(f"[red]Error tracking {number}: {e}[/red]")
         else:
             console.print(f"[red]Courier {courier_name} not found.[/red]")
+
+
+@app.command()
+def watch(
+    tracking_number: str,
+    courier: str = typer.Option(
+        None,
+        "--courier",
+        "-c",
+        help="Courier name. If omitted, attempts auto-detection.",
+    ),
+    interval: int = typer.Option(
+        600,
+        "--interval",
+        "-i",
+        help="Polling interval in seconds (default: 600s / 10m).",
+    ),
+):
+    """
+    Watch a package for updates. Sends a desktop notification when status changes.
+
+    """
+
+    selected_courier = courier
+    if not selected_courier:
+        candidates = identify_courier(tracking_number)
+        if len(candidates) == 1:
+            selected_courier = candidates[0]
+            console.print(f"[green]Auto-detected courier: {selected_courier}[/green]")
+        elif len(candidates) > 1:
+            console.print(
+                f"[yellow]Multiple potential couriers found: {', '.join(candidates)}[/yellow]"
+            )
+            console.print("Please specify one with --courier")
+            raise typer.Exit(code=1)
+        else:
+            console.print(
+                "[red]Could not auto-detect courier. Please specify with --courier[/red]"
+            )
+            raise typer.Exit(code=1)
+
+    tracker = get_tracker(selected_courier)
+    if not tracker:
+        console.print(f"[red]Unknown courier: {selected_courier}[/red]")
+        raise typer.Exit(code=1)
+
+    console.print(
+        f"[bold blue]Watching {tracking_number} ({selected_courier})[/bold blue]"
+    )
+    console.print(
+        f"[dim]Polling every {interval} seconds. Press Ctrl+C to stop.[/dim]\n"
+    )
+
+    last_status = None
+
+    try:
+        while True:
+            try:
+                package = tracker.track(tracking_number)
+
+                if not package.found:
+                    console.print(
+                        f"[yellow]{time.strftime('%H:%M:%S')} - Package not found yet...[/yellow]"
+                    )
+                else:
+                    current_status = "Unknown"
+                    current_location = ""
+
+                    if package.locations:
+                        latest = package.locations[-1]
+                        current_status = latest.description
+                        current_location = latest.location
+
+                    if last_status is None:
+                        console.print(
+                            f"[green]{time.strftime('%H:%M:%S')} - Initial Status: {current_status} ({current_location})[/green]"
+                        )
+                        last_status = current_status
+                    elif current_status != last_status:
+                        # Change detected
+                        msg = f"Status changed to: {current_status}"
+                        if current_location:
+                            msg += f" at {current_location}"
+
+                        console.print(
+                            f"[bold magenta]{time.strftime('%H:%M:%S')} - UPDATE: {msg}[/bold magenta]"
+                        )
+                        send_notification(
+                            title=f"Package Update ({selected_courier})", message=msg
+                        )
+                        last_status = current_status
+                    else:
+                        console.print(
+                            f"[dim]{time.strftime('%H:%M:%S')} - No change...[/dim]"
+                        )
+
+            except Exception as e:
+                console.print(f"[red]Error checking status: {e}[/red]")
+
+            time.sleep(interval)
+
+    except KeyboardInterrupt:
+        console.print("\n[bold red]Stopped watching.[/bold red]")
 
 
 if __name__ == "__main__":

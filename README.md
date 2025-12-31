@@ -6,6 +6,7 @@ A command-line interface (CLI) tool for tracking parcels from various Greek cour
 
 - **Multi-Courier Support**: Track packages from major Greek courier companies.
 - **Smart Detection**: Automatically identifies the courier based on the tracking number format.
+- **Watch Mode**: Real-time polling with desktop notifications for status updates.
 - **Tracking History**: Save and manage your parcels for easy status updates.
 - **Rich Output**: Beautiful terminal output with tables and status indicators.
 - **JSON Output**: Optional JSON output for programmatic integration (e.g., widgets, scripts).
@@ -68,6 +69,12 @@ greek-parcel rename <number> "New Laptop"
 
 # Refresh all saved parcels
 greek-parcel refresh
+
+# Watch a parcel for updates (sends desktop notification)
+greek-parcel watch <number>
+
+# Watch with custom interval (e.g., every 5 minutes)
+greek-parcel watch <number> --interval 300
 
 # Remove a parcel from history
 greek-parcel forget <number>
