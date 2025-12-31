@@ -5,6 +5,7 @@ A command-line interface (CLI) tool for tracking parcels from various Greek cour
 ## Features
 
 - **Multi-Courier Support**: Track packages from major Greek courier companies.
+- **Smart Detection**: Automatically identifies the courier based on the tracking number format.
 - **Rich Output**: Beautiful terminal output with tables and status indicators.
 - **JSON Output**: Optional JSON output for programmatic integration (e.g., widgets, scripts).
 - **Easy to Use**: Simple CLI commands for quick tracking.

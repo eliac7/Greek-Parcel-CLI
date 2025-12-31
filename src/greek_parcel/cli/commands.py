@@ -4,6 +4,7 @@ from rich.table import Table
 
 from greek_parcel.core.constants import ERROR_TRACKING_PACKAGE, STATUS_TRACKING
 from greek_parcel.core.exceptions import CourierNotFoundError
+from greek_parcel.core.identification import identify_courier
 from greek_parcel.trackers import get_tracker, list_couriers
 from greek_parcel.utils.display import display_package, display_package_json
 
@@ -64,7 +65,7 @@ def track(
             if not tracker:
                 console.print(f"[bold red]Unknown courier: {courier}[/bold red]")
                 raise typer.Exit(code=1)
-            
+
             try:
                 package = tracker.track(tracking_number)
                 if package.found:
@@ -87,13 +88,32 @@ def track(
         # Multithreaded search
         import concurrent.futures
 
-        couriers = list_couriers()
-        with console.status("Searching for package in all couriers...", spinner="dots") as status:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=len(couriers)) as executor:
+        # Detect potential couriers
+        candidates = identify_courier(tracking_number)
+
+        if candidates:
+            couriers_to_check = candidates
+            if not json_output:
+                console.print(
+                    f"[dim]Detected potential couriers: {', '.join(candidates)}[/dim]"
+                )
+        else:
+            # Fallback to all couriers if no pattern matches
+            couriers_to_check = list_couriers()
+            if not json_output:
+                console.print(
+                    "[dim]Could not identify courier format. Checking all...[/dim]"
+                )
+
+        with console.status("Searching for package...", spinner="dots") as status:
+            with concurrent.futures.ThreadPoolExecutor(
+                max_workers=len(couriers_to_check)
+            ) as executor:
                 future_to_courier = {
-                    executor.submit(check_courier, name): name for name in couriers
+                    executor.submit(check_courier, name): name
+                    for name in couriers_to_check
                 }
-                
+
                 for future in concurrent.futures.as_completed(future_to_courier):
                     name = future_to_courier[future]
                     status.update(f"Checked {name}...")
@@ -110,10 +130,11 @@ def track(
                         continue
 
     if not found and not courier:
-        console.print(f"[bold red]Could not find tracking number {tracking_number} in any supported courier.[/bold red]")
+        console.print(
+            f"[bold red]Could not find tracking number {tracking_number} in any supported courier.[/bold red]"
+        )
         raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":
     app()
-
