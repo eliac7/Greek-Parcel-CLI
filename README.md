@@ -87,7 +87,7 @@ greek-parcel forget <number>
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/Greek-Parcel-CLI.git
+    git clone https://github.com/eliac7/Greek-Parcel-CLI.git
     cd Greek-Parcel-CLI
     ```
 
